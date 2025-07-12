@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Commentaire</h1>
+    {% for i in comment %}
+    <div class="commentaire">
+        <p>{{i.commentaires}}</p>
+        <p style="color: blue;">{{i.reponse}}</p>
+    </div>
+    {% endfor %}
+
+    <div>
+        <form action="../createcommentaire" method="post">
+            {% csrf_token %}
+            <input type="text" name="id" id="" value="{{id}}" readonly>
+            <textarea name="commentaire" id="" cols="10"></textarea>
+            <button type="submit">Envoyer</button>
+        </form>
+    </div>
+</body>
+</html>

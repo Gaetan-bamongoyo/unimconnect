@@ -13,3 +13,17 @@ class Post(models.Model):
     image = models.ImageField(upload_to='posts')
     date_add = models.DateField(auto_now=True)
     user_id = models.ForeignKey(CustomerUser, on_delete=models.CASCADE)
+
+class Commentaire(models.Model):
+    commentaires = models.TextField()
+    posts = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='commentaire')
+    user_id = models.ForeignKey(CustomerUser, on_delete=models.CASCADE)
+    reponse = models.TextField(null=True)
+
+class Reaction(models.Model):
+    user_id = models.ForeignKey(CustomerUser, on_delete=models.CASCADE)
+    posts = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='reaction')
+
+class Photos(models.Model):
+    images = models.ImageField(upload_to='posts')
+    posts = models.ForeignKey(Post, on_delete=models.CASCADE)

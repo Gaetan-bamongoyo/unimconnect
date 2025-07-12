@@ -239,8 +239,10 @@
                 </div>
                 <img src="{{i.image.url}}" alt="Post" class="post-image">
                 <div class="post-actions">
-                    <span><i class="fas fa-heart icon"></i>{{i.nb_commentaire}}</span>
-                    <span><i class="fas fa-comment icon"></i>4534</span>
+                    <span><a href="createlike/{{i.id}}">
+                        <i class="fas fa-heart icon"></i></a>{{i.nb_like}}</span>
+                        <span><a href="commentairepage/{{i.id}}">
+                        <i class="fas fa-comment icon"></i></a>{{i.nb_commentaire}}</span>
                 </div>
             </div>
             {% endfor %}
@@ -248,13 +250,14 @@
         <!-- Right Panel -->
         <div class="right-panel">
             <h2>Post, une histoire</h2>
-            <form>
+            <form action="{% url 'postapp:createpost' %}" enctype="multipart/form-data" method="post">
+                {% csrf_token %}
                 <label for="lieu">Lieu</label>
                 <input type="text" id="lieu" name="lieu">
                 <label for="post">Post</label>
-                <textarea id="post" name="post" rows="5"></textarea>
+                <textarea id="post" name="description" rows="5"></textarea>
                 <label for="photo">Photo</label>
-                <input type="file" id="photo" name="photo" placeholder="URL de la photo">
+                <input type="file" id="photo" name="image">
                 <button type="submit">Poster</button>
             </form>
         </div>

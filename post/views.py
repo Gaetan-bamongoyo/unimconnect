@@ -42,7 +42,7 @@ def loginUser(request):
 
 @login_required
 def dashboardPage(request):
-    post = Post.objects.annotate(nb_commentaire=Count('user_id')).prefetch_related('user_id')
+    post = Post.objects.annotate(nb_commentaire=Count('commentaire'), nb_like=Count('reaction')).prefetch_related('user_id')
     return render(request, 'dashboard.html', {'posts':post})
 
 @login_required
@@ -63,6 +63,56 @@ def createPost(request):
             )
             form.save()
             return redirect('postapp:homepage')
+    else:
+        return redirect('postapp:login')
+
+@login_required
+def createLike(request, pk):
+    if request.user.is_authenticated:
+        user_id = request.user.id
+        users = CustomerUser.objects.get(id=user_id)
+        users.id
+        post = Post.objects.get(id = pk)
+        post.id
+        if Reaction.objects.filter(posts = pk, user_id = users).exists():
+            form = Reaction.objects.get(posts = post, user_id = users)
+            form.delete()
+            return redirect('../homepage')
+        else:
+            form = Reaction(
+                user_id = users,
+                posts = post
+            )
+            form.save()
+            return redirect('postapp:homepage')
+    else:
+        return redirect('postapp:login')
+
+@login_required
+def commentairePage(request, pk):
+    commentaires = Commentaire.objects.filter(posts = pk)
+    return render(request, 'commentaire.html', {'id':pk, 'comment':commentaires})
+
+@login_required
+def createCommentaire(request):
+    if request.user.is_authenticated:
+        user_id = request.user.id
+        users = CustomerUser.objects.get(id = user_id)
+        users.id
+        if request.method == 'POST':
+            id = int(request.POST.get('id'))
+            comment = request.POST.get('commentaire')
+            post = Post.objects.get(id = id)
+            post.id
+            form = Commentaire(
+                posts = post,
+                commentaires = comment,
+                user_id = users
+            )
+            form.save()
+            return redirect('postapp:homepage')
+        else:
+            return redirect('')
     else:
         return redirect('postapp:login')
 
