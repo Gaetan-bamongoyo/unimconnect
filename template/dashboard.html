@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        html,
+        body {
+            margin: 0;
+            font-family: Raleway;
+            background: #fff;
+            overflow-x: hidden;
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+        }
+
+        .container {
+            display: flex;
+            width: 100vw;
+            max-width: 100vw;
+            box-sizing: border-box;
+        }
+
+        .sidebar {
+            width: 255px;
+            background: #fff;
+            display: flex;
+            position: fixed;
+            height: 100vh;
+        }
+
+        .logo-container {
+            max-width: 75px;
+            display: flex;
+            background-color: #5a3fd6;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo {
+            width: 90px;
+        }
+
+        .sidebar-menu {
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            width: 100%;
+            justify-content: space-between;
+            padding: 10px;
+            box-shadow: 0 0 3px #ccc;
+        }
+        .sidebar-menu div{
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .sidebar-menu div a{
+            color: black;
+            font-size: 15px;
+        }
+        .sidebar-menu div a i{
+            margin-right: 10px;
+        }
+
+        .menu-item {
+            color: #fff;
+            font-size: 22px;
+            text-decoration: none;
+            text-align: center;
+            width: 100%;
+            padding: 10px 0;
+            transition: background 0.2s;
+        }
+
+        .main-content {
+            flex: 1 1 0%;
+            margin-left: 255px;
+            min-width: 0;
+            padding: 40px 0;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+        }
+
+        .main-header {
+            display: flex;
+            justify-content: end;
+            gap: 10px;
+            margin-bottom: 2px;
+        }
+
+        .post-card {
+            width: 100%;
+            max-width: 700px;
+            /* background: #fff; */
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            padding: 30px 0 10px 30px;
+            margin-bottom: 40px;
+        }
+
+        .post-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .post-header img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+
+        .post-header .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .post-header .user-info .name {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .post-header .user-info .location {
+            font-size: 15px;
+            color: #888;
+        }
+
+        .post-description {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .post-image {
+            width: 100%;
+            max-height: 350px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .post-actions {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            font-size: 16px;
+        }
+
+        .post-actions .icon {
+            margin-right: 8px;
+        }
+
+        .right-panel {
+            width: 220px;
+            background: #ffffff;
+            box-shadow: 5px 5px 4px rgba(17, 16, 16, 0.15);
+            padding: 40px 30px;
+        }
+
+        .right-panel h2 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+
+        .right-panel label {
+            font-size: 18px;
+            font-weight: 600;
+            margin-top: 15px;
+            display: block;
+        }
+
+        .right-panel input,
+        .right-panel textarea {
+            width: 100%;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            padding: 4px;
+            border-radius: 3px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        .right-panel button {
+            width: 100%;
+            background: #2B2EF1;
+            color: #fff;
+            font-size: 20px;
+            font-weight: 600;
+            border: none;
+            border-radius: 3px;
+            padding: 10px 0;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo-container">
+                <img src="static/assets/images/logo.png" alt="Logo" class="logo">
+            </div>
+            <nav class="sidebar-menu">
+                <div>
+                    <a class="menu-item" href="#"><i class="fas fa-home"></i> Home</a>
+                    <a class="menu-item" href="#"><i class="fas fa-user"></i> Profil</a>
+                </div>
+                <div>
+                    <a class="menu-item" href="#"><i class="fas fa-sign-out-alt"></i> Deconnexion</a>
+                </div>
+            </nav>
+        </div>
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="main-header">
+                <a href=""><i class="fas fa-envelope"></i></a>
+                <a href=""><i class="fas fa-bell"></i></a>
+            </div>
+            {% for i in posts %}
+            <div class="post-card">
+                <div class="post-header">
+                    <img src="https://placehold.co/50x50" alt="Profil">
+                    <div class="user-info">
+                        <span class="name">{{i.user_id.username}}</span>
+                        <span class="location">{{i.lieu}}</span>
+                    </div>
+                </div>
+                <div class="post-description">
+                    {{i.description}}
+                </div>
+                <img src="{{i.image.url}}" alt="Post" class="post-image">
+                <div class="post-actions">
+                    <span><i class="fas fa-heart icon"></i>{{i.nb_commentaire}}</span>
+                    <span><i class="fas fa-comment icon"></i>4534</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <!-- Right Panel -->
+        <div class="right-panel">
+            <h2>Post, une histoire</h2>
+            <form>
+                <label for="lieu">Lieu</label>
+                <input type="text" id="lieu" name="lieu">
+                <label for="post">Post</label>
+                <textarea id="post" name="post" rows="5"></textarea>
+                <label for="photo">Photo</label>
+                <input type="file" id="photo" name="photo" placeholder="URL de la photo">
+                <button type="submit">Poster</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

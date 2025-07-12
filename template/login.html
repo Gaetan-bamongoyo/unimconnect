@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CONNECT UNIMRDC</title>
+    <link rel="stylesheet" href="{% static 'assets/css/login.css' %}">
+</head>
+
+<body>
+    <div class="content">
+        <h1>Connect UNIMRDC <br> Restons ensemble pour toujours</h1>
+        <span>Bienvenus à tous </span>
+    </div>
+    <div class="container-form">
+
+        <div id="login-form" class="form">
+            <form action="{% url 'postapp:loginuser' %}" method="post">
+                {% csrf_token %}
+                <div class="form-input">
+                    <label for="">Matricule</label>
+                    <input type="text" name="matricule" id="" required>
+                </div>
+                <div class="form-input">
+                    <label for="">Mot de passe</label>
+                    <input type="password" name="password" id="" required>
+                </div>
+                <button type="submit">Se connecter</button>
+                <p>Vous n'avez pas un compte ? <i><u><a href="" onclick="showForm('sign-up'); event.preventDefault();">Créer un</a></u></i></p>
+            </form>
+        </div>
+
+
+        <div id="sign-up" class="form" style="display:none;">
+            <form id="sign-up-form" action="{% url 'postapp:createuser' %}" method="post">
+                {% csrf_token %}
+                <div class="form-input">
+                    <label for="">Matricule</label>
+                    <input type="text" name="matricule" id="" required>
+                </div>
+                <div class="form-input">
+                    <label for="">email</label>
+                    <input type="email" name="email" id="" required>
+                </div>
+                <div class="form-input">
+                    <label for="">Mot de passe</label>
+                    <input type="password" name="password" id="password" required>
+                </div>
+                <div class="form-input">
+                    <label for="">Confirmer le mot de passe</label>
+                    <input type="password" id="confirm_password" required>
+                </div>
+                <button type="submit">S'inscrire</button>
+                <p>Vous avez un compte ? <i><u><a href="" onclick="showForm('login-form'); event.preventDefault();">Se connecter</a></u></i></p>
+            </form>
+        </div>
+
+    </div>
+
+    <script>
+        // Affiche le formulaire de login au chargement et ajoute la vérification du mot de passe
+        document.addEventListener('DOMContentLoaded', function() {
+            showForm('login-form');
+
+            // Sélection du formulaire d'inscription
+            const signUpForm = document.getElementById('sign-up-form');
+            if (signUpForm) {
+                signUpForm.addEventListener('submit', function(event) {
+                    const password = signUpForm.querySelector('input[name="password"]').value;
+                    const confirmPassword = signUpForm.querySelector('#confirm_password').value;
+                    if (password !== confirmPassword) {
+                        alert('Les mots de passe ne correspondent pas.');
+                        event.preventDefault(); // Empêche l'envoi du formulaire
+                    }
+                });
+            }
+        });
+
+        function showForm(formId) {
+            const forms = document.querySelectorAll('.form');
+            forms.forEach(form => {
+                form.style.display = 'none';
+            });
+            document.getElementById(formId).style.display = 'block';
+        }
+    </script>
+</body>
+
+</html>
